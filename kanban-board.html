@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kanban Board | Jira Lite / Sprint Manager</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="sidebarMount"></div>
+
+    <div class="app-shell">
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <p class="page-kicker">Delivery Flow</p>
+            <h1 class="page-title">Kanban Board</h1>
+            <p class="page-description">
+              Drag active sprint cards between workflow columns and persist
+              every status change locally.
+            </p>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <span class="story-pill" id="boardPointTotal">0 pts</span>
+            <span class="status-pill" id="boardSprintName"
+              >No active sprint</span
+            >
+          </div>
+        </header>
+
+        <section class="panel mb-3">
+          <div class="filters-bar">
+            <input
+              class="form-control"
+              id="boardSearch"
+              placeholder="Search active sprint cards"
+            />
+            <select class="form-select" id="boardPriorityFilter">
+              <option value="">All priorities</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+              <option>Critical</option>
+            </select>
+            <select class="form-select" id="boardAssigneeFilter"></select>
+            <select class="form-select" id="boardTypeFilter">
+              <option value="">All types</option>
+              <option>Story</option>
+              <option>Bug</option>
+              <option>Task</option>
+              <option>Epic</option>
+            </select>
+            <select class="form-select" id="boardSprintFilter"></select>
+          </div>
+        </section>
+
+        <section class="kanban-board" id="kanbanBoard"></section>
+      </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/kanban-board.js"></script>
+  </body>
+</html>

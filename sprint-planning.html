@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sprint Planning | Jira Lite / Sprint Manager</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="sidebarMount"></div>
+
+    <div class="app-shell">
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <p class="page-kicker">Sprint Scope</p>
+            <h1 class="page-title">Sprint Planning</h1>
+            <p class="page-description">
+              Create sprint windows, activate the current sprint, and move ready
+              backlog work into scope.
+            </p>
+          </div>
+        </header>
+
+        <section class="form-panel mb-3">
+          <h2 class="section-title">Create Sprint</h2>
+          <form id="sprintForm">
+            <div class="row g-3">
+              <div class="col-lg-4">
+                <label class="form-label" for="sprintName">Sprint Name</label>
+                <input
+                  class="form-control"
+                  id="sprintName"
+                  required
+                  placeholder="Sprint 3"
+                />
+              </div>
+              <div class="col-lg-3">
+                <label class="form-label" for="startDate">Start Date</label>
+                <input
+                  class="form-control"
+                  id="startDate"
+                  type="date"
+                  required
+                />
+              </div>
+              <div class="col-lg-3">
+                <label class="form-label" for="endDate">End Date</label>
+                <input class="form-control" id="endDate" type="date" required />
+              </div>
+              <div class="col-lg-2 d-flex align-items-end">
+                <button class="btn btn-cyber w-100" type="submit">
+                  <i class="bi bi-plus-circle me-1"></i>Create
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="grid-auto mb-3" id="sprintStats"></section>
+
+        <section class="grid-two">
+          <div class="panel">
+            <div
+              class="d-flex justify-content-between align-items-start gap-3 mb-3 flex-wrap"
+            >
+              <div>
+                <h2 class="section-title mb-1">Sprints</h2>
+                <p class="text-muted-custom mb-0">
+                  Activate, close, and inspect sprint scope.
+                </p>
+              </div>
+            </div>
+            <div id="sprintList"></div>
+          </div>
+
+          <div class="panel">
+            <h2 class="section-title">Sprint Items</h2>
+            <select class="form-select mb-3" id="selectedSprint"></select>
+            <div class="mb-3">
+              <label class="form-label" for="backlogPicker"
+                >Add Backlog Item</label
+              >
+              <div class="d-flex gap-2">
+                <select class="form-select" id="backlogPicker"></select>
+                <button class="btn btn-cyber" id="addToSprintBtn" type="button">
+                  <i class="bi bi-plus-lg"></i>
+                </button>
+              </div>
+            </div>
+            <div id="sprintItems"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/sprint-planning.js"></script>
+  </body>
+</html>
