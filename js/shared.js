@@ -465,6 +465,71 @@ function applyDarkMode() {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
 }
 
+function setupPageTransitions() {
+    const shell = $(".app-shell");
+    const loaderMarkup = `
+        <div class="page-loader" id="pageLoader" aria-live="polite" aria-hidden="true">
+            <div class="page-loader-card">
+                <div class="page-loader-mark">JL</div>
+                <div>
+                    <p class="page-loader-title">Jira Lite</p>
+                    <p class="page-loader-text">Loading workspace</p>
+                </div>
+                <div class="page-loader-spinner" aria-hidden="true"></div>
+            </div>
+        </div>
+    `;
+
+    if (!$("#pageLoader").length) {
+        $("body").append(loaderMarkup);
+    }
+
+    const loader = $("#pageLoader");
+
+    requestAnimationFrame(() => {
+        shell.removeClass("page-leaving").addClass("page-ready");
+        loader.removeClass("is-visible").attr("aria-hidden", "true");
+    });
+
+    $(document).on("click", "a[href]", function (event) {
+        const href = $(this).attr("href");
+
+        if (
+            !href ||
+            href.startsWith("#") ||
+            href.startsWith("javascript:") ||
+            $(this).attr("target") === "_blank" ||
+            $(this).attr("download") ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.shiftKey ||
+            event.altKey
+        ) {
+            return;
+        }
+
+        const nextUrl = new URL(href, window.location.href);
+
+        if (nextUrl.origin !== window.location.origin || nextUrl.href === window.location.href) {
+            return;
+        }
+
+        event.preventDefault();
+        loader.addClass("is-visible").attr("aria-hidden", "false");
+        shell.removeClass("page-ready").addClass("page-leaving");
+
+        setTimeout(() => {
+            window.location.href = nextUrl.href;
+        }, 220);
+    });
+
+    window.addEventListener("pageshow", function () {
+        $(".app-shell").removeClass("page-leaving").addClass("page-ready");
+        $("#pageLoader").removeClass("is-visible").attr("aria-hidden", "true");
+    });
+}
+
 $(document).ready(function () {
     applyDarkMode();
+    setupPageTransitions();
 });
