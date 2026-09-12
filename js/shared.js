@@ -396,6 +396,53 @@ function setActiveNav() {
     });
 }
 
+function clearFieldError(field) {
+    $(field).removeClass("is-invalid");
+    const feedback = field.nextElementSibling;
+    if (feedback && feedback.classList.contains("invalid-feedback")) {
+        feedback.style.display = "none";
+    }
+}
+
+function markFieldError(field, message) {
+    let feedback = field.nextElementSibling;
+    if (!feedback || !feedback.classList.contains("invalid-feedback")) {
+        feedback = document.createElement("div");
+        feedback.className = "invalid-feedback";
+        field.insertAdjacentElement("afterend", feedback);
+    }
+
+    $(field).addClass("is-invalid");
+    feedback.textContent = message;
+    feedback.style.display = "block";
+}
+
+function validateRequiredFields(formSelector) {
+    const form = document.querySelector(formSelector);
+    if (!form) return true;
+
+    let valid = true;
+    let firstInvalid = null;
+
+    form.querySelectorAll("[required]").forEach((field) => {
+        const isEmpty = !String(field.value || "").trim();
+        if (isEmpty) {
+            valid = false;
+            firstInvalid = firstInvalid || field;
+            markFieldError(field, "This field is required.");
+        } else {
+            clearFieldError(field);
+        }
+    });
+
+    if (firstInvalid) firstInvalid.focus();
+    return valid;
+}
+
+$(document).on("input change", "[required]", function () {
+    if (String(this.value || "").trim()) clearFieldError(this);
+});
+
 function showStatus(message, type = "success") {
     $(".status-message").remove();
 

@@ -74,6 +74,11 @@ function renderSprints() {
 }
 
 function createSprint() {
+    if (!validateRequiredFields("#sprintForm")) {
+        showStatus("Please fill in the required fields.", "warning");
+        return;
+    }
+
     const workspace = loadWorkspace();
     const name = $("#sprintName").val().trim();
     const startDate = $("#startDate").val();
